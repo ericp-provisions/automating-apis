@@ -1,0 +1,36 @@
+version: "3"
+services:
+  db:
+    image: postgres:16.2-alpine3.19
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tododb
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  backend:
+    depends_on:
+      - db
+    build:
+      context: ./TodoAPI
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings:DefaultConnection: "Server=db;Port=5432;Database=tododb;Username=postgres;Password=postgres;"
+    ports:
+      - 8080:8080
+
+  # generate-api-client:
+  #   volumes:
+  #     - ./:/local
+  #   image: swaggerapi/swagger-codegen-cli
+  #   command: generate
+  #     -i local/todo-openapi-config.json
+  #     -c local/generate-api-client-configuration.json
+  #     -l python
+  #     -o /local/api-client
+
+volumes:
+  db-data: {}
