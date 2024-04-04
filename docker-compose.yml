@@ -22,15 +22,44 @@ services:
     ports:
       - 8080:8080
 
-  # generate-api-client:
-  #   volumes:
-  #     - ./:/local
-  #   image: swaggerapi/swagger-codegen-cli
-  #   command: generate
-  #     -i local/todo-openapi-config.json
-  #     -c local/generate-api-client-configuration.json
-  #     -l python
-  #     -o /local/api-client
+  nextjs:
+    build:
+      context: ./frontends/nextjs/todo-app
+    # environment:
+    #   API_HOST_URL: localhost:8080
+    ports:
+      - 3000:3000
 
+  # Use Docker Compose Run to generate an api client library
+  # The following services are for generating various api client libraries
+  generate-api-client-typescript:
+    volumes:
+      - ./:/local
+    image: swaggerapi/swagger-codegen-cli-v3
+    command: generate
+      -i local/swagger.json
+      -c local/generate-api-client-configuration.json
+      -l typescript-fetch
+      -o /local/api-clients/typescript
+
+  generate-api-client-python:
+    volumes:
+      - ./:/local
+    image: swaggerapi/swagger-codegen-cli-v3
+    command: generate
+      -i local/swagger.json
+      -c local/generate-api-client-configuration.json
+      -l python
+      -o /local/api-clients/python
+
+  generate-api-client-html-docs:
+    volumes:
+      - ./:/local
+    image: swaggerapi/swagger-codegen-cli-v3
+    command: generate
+      -i local/swagger.json
+      -c local/generate-api-client-configuration.json
+      -l html2
+      -o /local/api-clients/html
 volumes:
   db-data: {}
