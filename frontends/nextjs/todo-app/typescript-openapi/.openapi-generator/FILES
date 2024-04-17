@@ -1,0 +1,7 @@
+.openapi-generator-ignore
+apis/TodoItemApi.ts
+apis/index.ts
+index.ts
+models/TodoItem.ts
+models/index.ts
+runtime.ts

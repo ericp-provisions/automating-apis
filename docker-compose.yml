@@ -32,6 +32,16 @@ services:
 
   # Use Docker Compose Run to generate an api client library
   # The following services are for generating various api client libraries
+  generate-api-client-typescript-openapi:
+    volumes:
+      - ./:/local
+    image: openapitools/openapi-generator-cli
+    command: generate
+      -i local/swagger.json
+      -c local/generate-api-client-configuration.json
+      -g typescript-fetch
+      -o /local/api-clients/typescript-openapi
+
   generate-api-client-typescript:
     volumes:
       - ./:/local

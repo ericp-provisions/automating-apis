@@ -7,7 +7,17 @@ builder.Configuration
     .AddJsonFile($"appsettings.{builder.Environment}.json", true, true)
     .AddEnvironmentVariables();
 var configuration = builder.Configuration;
-
+if (builder.Environment.IsDevelopment()) 
+{ 
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: "LocalOrigins", policy =>
+        {
+            policy.WithOrigins("http://localhost:3000", "https://localhost:3000");
+            // policy.WithOrigins("*", "*");
+        });
+    });
+}
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoContext>(opt =>
@@ -47,6 +57,7 @@ app.UseHttpsRedirection();
 //     .WithName("GetWeatherForecast")
 //     .WithOpenApi();
 
+app.UseCors("LocalOrigins");
 app.MapControllers();
 app.Run();
 

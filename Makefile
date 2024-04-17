@@ -14,13 +14,27 @@ start-backend:
 start-nextjs:
 	echo "Spinning up the Next.js web app in a docker container"
 	docker compose up nextjs -d
-	echo "The dotnet Next.js web app is up"
+	echo "The Next.js web app is up"
 
 .PHONY: stop
-start-nextjs:
+stop:
 	echo "Shutting down containers"
 	docker compose down
 	echo "Shut down containers"
+
+.PHONY: start
+start:
+	echo "Starting down containers"
+	make start-db
+	make start-backend
+	make start-nextjs
+	echo "Containers started"
+	
+.PHONY: generate-api-client-typescript-openapi
+generate-api-client-typescript-openapi:
+	echo "Generate the Todo API client Typescript library"
+	docker compose run --rm generate-api-client-typescript-openapi
+	echo "Finished generating the Todo API client Typescript library"
 
 .PHONY: generate-api-client-typescript
 generate-api-client-typescript:
