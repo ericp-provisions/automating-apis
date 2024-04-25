@@ -8,8 +8,14 @@ test("TodoItem model interface", () => {
     id?: number;
     name?: string;
     isComplete?: boolean;
-    author?: string;
   }
+
+  //   interface TestModel {
+  //     id?: number;
+  //     name?: string;
+  //     isComplete?: boolean;
+  //     author?: string;
+  //   }
 
   const mockedModel = mock<TodoItemModel>();
   const model = instance(mockedModel);

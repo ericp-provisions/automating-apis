@@ -706,6 +706,23 @@
   },
   "additionalProperties" : false
 };
+            defs["TodoItemModel"] = {
+  "type" : "object",
+  "properties" : {
+    "id" : {
+      "type" : "integer",
+      "format" : "int64"
+    },
+    "name" : {
+      "type" : "string",
+      "nullable" : true
+    },
+    "isComplete" : {
+      "type" : "boolean"
+    }
+  },
+  "additionalProperties" : false
+};
   </script>
 
   <div class="container-fluid">
@@ -810,7 +827,7 @@ public class TodoItemApiExample {
         
         TodoItemApi apiInstance = new TodoItemApi();
         try {
-            array[TodoItem] result = apiInstance.apiTodoItemGet();
+            array[TodoItemModel] result = apiInstance.apiTodoItemGet();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TodoItemApi#apiTodoItemGet");
@@ -828,7 +845,7 @@ public class TodoItemApiExample {
     public static void main(String[] args) {
         TodoItemApi apiInstance = new TodoItemApi();
         try {
-            array[TodoItem] result = apiInstance.apiTodoItemGet();
+            array[TodoItemModel] result = apiInstance.apiTodoItemGet();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TodoItemApi#apiTodoItemGet");
@@ -846,7 +863,7 @@ public class TodoItemApiExample {
 TodoItemApi *apiInstance = [[TodoItemApi alloc] init];
 
 [apiInstance apiTodoItemGetWithCompletionHandler: 
-              ^(array[TodoItem] output, NSError* error) {
+              ^(array[TodoItemModel] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -893,7 +910,7 @@ namespace Example
 
             try
             {
-                array[TodoItem] result = apiInstance.apiTodoItemGet();
+                array[TodoItemModel] result = apiInstance.apiTodoItemGet();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -984,7 +1001,7 @@ except ApiException as e:
       "schema" : {
         "type" : "array",
         "items" : {
-          "$ref" : "#/components/schemas/TodoItem"
+          "$ref" : "#/components/schemas/TodoItemModel"
         },
         "x-content-type" : "text/plain"
       }
@@ -993,7 +1010,7 @@ except ApiException as e:
       "schema" : {
         "type" : "array",
         "items" : {
-          "$ref" : "#/components/schemas/TodoItem"
+          "$ref" : "#/components/schemas/TodoItemModel"
         }
       }
     },
@@ -1001,7 +1018,7 @@ except ApiException as e:
       "schema" : {
         "type" : "array",
         "items" : {
-          "$ref" : "#/components/schemas/TodoItem"
+          "$ref" : "#/components/schemas/TodoItemModel"
         }
       }
     }
@@ -1329,7 +1346,7 @@ public class TodoItemApiExample {
         TodoItemApi apiInstance = new TodoItemApi();
         Long id = 789; // Long | 
         try {
-            TodoItem result = apiInstance.apiTodoItemIdGet(id);
+            TodoItemModel result = apiInstance.apiTodoItemIdGet(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TodoItemApi#apiTodoItemIdGet");
@@ -1348,7 +1365,7 @@ public class TodoItemApiExample {
         TodoItemApi apiInstance = new TodoItemApi();
         Long id = 789; // Long | 
         try {
-            TodoItem result = apiInstance.apiTodoItemIdGet(id);
+            TodoItemModel result = apiInstance.apiTodoItemIdGet(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TodoItemApi#apiTodoItemIdGet");
@@ -1367,7 +1384,7 @@ public class TodoItemApiExample {
 TodoItemApi *apiInstance = [[TodoItemApi alloc] init];
 
 [apiInstance apiTodoItemIdGetWith:id
-              completionHandler: ^(TodoItem output, NSError* error) {
+              completionHandler: ^(TodoItemModel output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -1417,7 +1434,7 @@ namespace Example
 
             try
             {
-                TodoItem result = apiInstance.apiTodoItemIdGet(id);
+                TodoItemModel result = apiInstance.apiTodoItemIdGet(id);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1538,17 +1555,17 @@ except ApiException as e:
   "content" : {
     "text/plain" : {
       "schema" : {
-        "$ref" : "#/components/schemas/TodoItem"
+        "$ref" : "#/components/schemas/TodoItemModel"
       }
     },
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/TodoItem"
+        "$ref" : "#/components/schemas/TodoItemModel"
       }
     },
     "text/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/TodoItem"
+        "$ref" : "#/components/schemas/TodoItemModel"
       }
     }
   }

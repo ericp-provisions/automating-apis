@@ -37,12 +37,6 @@ export interface TodoItemModel {
      * @memberof TodoItemModel
      */
     isComplete?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof TodoItemModel
-     */
-    author?: string;
 }
 
 /**
@@ -65,7 +59,6 @@ export function TodoItemModelFromJSONTyped(json: any, ignoreDiscriminator: boole
         'id': json['id'] == null ? undefined : json['id'],
         'name': json['name'] == null ? undefined : json['name'],
         'isComplete': json['isComplete'] == null ? undefined : json['isComplete'],
-        'author': json['author'] == null ? undefined : json['author'],
     };
 }
 
@@ -78,7 +71,6 @@ export function TodoItemModelToJSON(value?: TodoItemModel | null): any {
         'id': value['id'],
         'name': value['name'],
         'isComplete': value['isComplete'],
-        'author': value['author'],
     };
 }
 

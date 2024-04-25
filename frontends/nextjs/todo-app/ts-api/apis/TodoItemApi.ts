@@ -25,10 +25,6 @@ import {
     TodoItemModelToJSON,
 } from '../models/index';
 
-export interface ApiTodoItemGetRequest {
-    isComplete?: boolean;
-}
-
 export interface ApiTodoItemIdDeleteRequest {
     id: number;
 }
@@ -53,12 +49,8 @@ export class TodoItemApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiTodoItemGetRaw(requestParameters: ApiTodoItemGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TodoItemModel>>> {
+    async apiTodoItemGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TodoItemModel>>> {
         const queryParameters: any = {};
-
-        if (requestParameters['isComplete'] != null) {
-            queryParameters['isComplete'] = requestParameters['isComplete'];
-        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -74,8 +66,8 @@ export class TodoItemApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiTodoItemGet(requestParameters: ApiTodoItemGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TodoItemModel>> {
-        const response = await this.apiTodoItemGetRaw(requestParameters, initOverrides);
+    async apiTodoItemGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TodoItemModel>> {
+        const response = await this.apiTodoItemGetRaw(initOverrides);
         return await response.value();
     }
 

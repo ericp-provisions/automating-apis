@@ -9,6 +9,7 @@ const todoItemApi = new TodoItemApi(
 
 const getTodoItems = async () => {
   const response = await todoItemApi.apiTodoItemGet();
+  // const response = await todoItemApi.apiTodoItemGet({ isComplete: false });
 
   return response;
 };
@@ -51,7 +52,7 @@ export default function Home() {
         {items.map((item) => (
           <li
             key={item.id}
-            className="flex justify-between bg-white gap-x-6 p-5"
+            className="flex justify-between bg-white gap-x-6 p-5 m-2"
             onClick={openTodo}
           >
             <div className="flex min-w-0 gap-x-4">

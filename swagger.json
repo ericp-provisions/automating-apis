@@ -8,16 +8,6 @@
     "/api/TodoItem": {
       "get": {
         "tags": ["TodoItem"],
-        "parameters": [
-          {
-            "name": "isComplete",
-            "in": "query",
-            "style": "form",
-            "schema": {
-              "type": "boolean"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -226,10 +216,6 @@
           },
           "isComplete": {
             "type": "boolean"
-          },
-          "author": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false
