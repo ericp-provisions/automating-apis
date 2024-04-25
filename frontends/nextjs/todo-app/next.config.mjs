@@ -2,6 +2,7 @@
 const nextConfig = {
   output: "standalone",
   reactStrictMode: false,
+  transpilePackages: ["./ts-api"],
 };
 
 export default nextConfig;

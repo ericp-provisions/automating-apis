@@ -1,5 +1,5 @@
-import { expect, test, it } from "vitest";
-import { TodoItemApi, TodoItem, Configuration } from "typescript-openapi";
+import { expect, it } from "vitest";
+import { TodoItemApi, Configuration } from "ts-api";
 
 const todoItemApi = new TodoItemApi(
   new Configuration({ basePath: "http://localhost:8080" })
@@ -18,12 +18,15 @@ const getTodoItemById = async (id: number) => {
 
 it("fetch todo item list", async () => {
   const result = await getTodoItems();
-
   expect(result).toEqual([{ id: 1, isComplete: false, name: "Test" }]);
 });
 
 it("fetch todo item by id", async () => {
   const result = await getTodoItemById(1);
 
-  expect(result).toEqual({ id: 1, isComplete: false, name: "Test" });
+  expect(result).toEqual({
+    id: 1,
+    isComplete: false,
+    name: "Test",
+  });
 });

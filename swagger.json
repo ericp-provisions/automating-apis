@@ -8,6 +8,16 @@
     "/api/TodoItem": {
       "get": {
         "tags": ["TodoItem"],
+        "parameters": [
+          {
+            "name": "isComplete",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -16,7 +26,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TodoItem"
+                    "$ref": "#/components/schemas/TodoItemModel"
                   }
                 }
               },
@@ -24,7 +34,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TodoItem"
+                    "$ref": "#/components/schemas/TodoItemModel"
                   }
                 }
               },
@@ -32,7 +42,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TodoItem"
+                    "$ref": "#/components/schemas/TodoItemModel"
                   }
                 }
               }
@@ -106,17 +116,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/TodoItem"
+                  "$ref": "#/components/schemas/TodoItemModel"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TodoItem"
+                  "$ref": "#/components/schemas/TodoItemModel"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TodoItem"
+                  "$ref": "#/components/schemas/TodoItemModel"
                 }
               }
             }
@@ -199,6 +209,27 @@
           },
           "isComplete": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TodoItemModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "isComplete": {
+            "type": "boolean"
+          },
+          "author": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

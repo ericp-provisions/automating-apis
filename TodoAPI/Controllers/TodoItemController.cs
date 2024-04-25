@@ -20,25 +20,97 @@ namespace TodoAPI.Controllers
             _context = context;
         }
 
+        // // GET: api/TodoItem
+        // [HttpGet]
+        // public async Task<ActionResult<IEnumerable<TodoItemModel>>> GetTodoItems()
+        // {
+        //     var todoItems = await _context.TodoItems.ToListAsync();
+
+
+        //     var newItems = new List<TodoItemModel>();
+        //     foreach (var todo in todoItems)
+        //     {
+        //         newItems.Add(new TodoItemModel()
+        //         {
+        //             Id = todo.Id,
+        //             Name = todo.Name,
+        //             IsComplete = todo.IsComplete
+        //         });
+        //     }
+
+        //     return newItems;
+        // }
+
+        // // GET: api/TodoItem
+        // [HttpGet]
+        // public async Task<ActionResult<IEnumerable<TodoItemModel>>> GetTodoItems()
+        // {
+        //     var todoItems = await _context.TodoItems.ToListAsync();
+
+        //     var newItems = new List<TodoItemModel>();
+        //     foreach (var todo in todoItems)
+        //     {
+        //         newItems.Add(new TodoItemModel()
+        //         {
+        //             Id = todo.Id,
+        //             Name = todo.Name,
+        //             IsComplete = todo.IsComplete,
+        //             Author = "Eric"
+        //         });
+        //     }
+
+        //     return newItems;
+        // }
+
         // GET: api/TodoItem
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
+        public async Task<ActionResult<IEnumerable<TodoItemModel>>> GetTodoItems([FromQuery] bool? isComplete = null)
         {
-            return await _context.TodoItems.ToListAsync();
+            IQueryable<TodoItem> query = _context.TodoItems;
+
+            if (isComplete.HasValue)
+            {
+                query = query.Where(t => t.IsComplete == isComplete.Value);
+            }
+
+            var todoItems = await query.ToListAsync();
+
+            var newItems = new List<TodoItemModel>();
+            foreach (var todo in todoItems)
+            {
+                newItems.Add(new TodoItemModel()
+                {
+                    Id = todo.Id,
+                    Name = todo.Name,
+                    IsComplete = todo.IsComplete,
+                    Author = "Eric"
+                });
+            }
+
+            return newItems;
         }
 
         // GET: api/TodoItem/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TodoItem>> GetTodoItem(long id)
+        // public async Task<ActionResult<TodoItem>> GetTodoItem(long id)
+        public async Task<ActionResult<TodoItemModel>> GetTodoItem(long id)
         {
             var todoItem = await _context.TodoItems.FindAsync(id);
-
             if (todoItem == null)
             {
                 return NotFound();
             }
+            
+            // return todoItem;
 
-            return todoItem;
+            return new TodoItemModel()
+            {
+                Id = todoItem.Id,
+                Name = todoItem.Name,
+                IsComplete = todoItem.IsComplete,
+                Author = "Eric"
+            };
+
         }
 
         // PUT: api/TodoItem/5

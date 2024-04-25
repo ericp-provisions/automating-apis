@@ -3,5 +3,6 @@ apis/TodoItemApi.ts
 apis/index.ts
 index.ts
 models/TodoItem.ts
+models/TodoItemModel.ts
 models/index.ts
 runtime.ts

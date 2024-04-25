@@ -16,11 +16,18 @@
 import * as runtime from '../runtime';
 import type {
   TodoItem,
+  TodoItemModel,
 } from '../models/index';
 import {
     TodoItemFromJSON,
     TodoItemToJSON,
+    TodoItemModelFromJSON,
+    TodoItemModelToJSON,
 } from '../models/index';
+
+export interface ApiTodoItemGetRequest {
+    isComplete?: boolean;
+}
 
 export interface ApiTodoItemIdDeleteRequest {
     id: number;
@@ -46,8 +53,12 @@ export class TodoItemApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiTodoItemGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TodoItem>>> {
+    async apiTodoItemGetRaw(requestParameters: ApiTodoItemGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TodoItemModel>>> {
         const queryParameters: any = {};
+
+        if (requestParameters['isComplete'] != null) {
+            queryParameters['isComplete'] = requestParameters['isComplete'];
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -58,13 +69,13 @@ export class TodoItemApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(TodoItemFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(TodoItemModelFromJSON));
     }
 
     /**
      */
-    async apiTodoItemGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TodoItem>> {
-        const response = await this.apiTodoItemGetRaw(initOverrides);
+    async apiTodoItemGet(requestParameters: ApiTodoItemGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TodoItemModel>> {
+        const response = await this.apiTodoItemGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -100,7 +111,7 @@ export class TodoItemApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiTodoItemIdGetRaw(requestParameters: ApiTodoItemIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TodoItem>> {
+    async apiTodoItemIdGetRaw(requestParameters: ApiTodoItemIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TodoItemModel>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -119,12 +130,12 @@ export class TodoItemApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => TodoItemFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => TodoItemModelFromJSON(jsonValue));
     }
 
     /**
      */
-    async apiTodoItemIdGet(requestParameters: ApiTodoItemIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TodoItem> {
+    async apiTodoItemIdGet(requestParameters: ApiTodoItemIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TodoItemModel> {
         const response = await this.apiTodoItemIdGetRaw(requestParameters, initOverrides);
         return await response.value();
     }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TodoItemApi, TodoItem, Configuration } from "typescript-openapi";
+import { TodoItemApi, TodoItemModel, Configuration } from "ts-api";
 
 const todoItemApi = new TodoItemApi(
   new Configuration({ basePath: "http://localhost:8080" })
@@ -13,9 +13,9 @@ const getTodoItems = async () => {
   return response;
 };
 
-export function Home() {
+export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
-  const [items, setItems] = useState<TodoItem[]>([]);
+  const [items, setItems] = useState<TodoItemModel[]>([]);
 
   useEffect(() => {
     setIsLoading(true);

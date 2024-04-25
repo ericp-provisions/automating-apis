@@ -3,8 +3,13 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
+COPY ./ts-api ./ts-api
 COPY package.json package-lock.json* ./
-RUN npm ci
+# COPY package.json package-lock.json* ./ts-api ./
+# can't run npm ci because of local package ts-api..
+# RUN npm ci
+RUN npm i
+RUN npm i ./ts-api --install-links
 
 FROM base AS builder
 WORKDIR /app
